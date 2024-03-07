@@ -1,0 +1,133 @@
+[System]
+Name='MICRO1'
+Type='mamdani'
+Version=2.0
+NumInputs=7
+NumOutputs=3
+NumRules=22
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Estado.ánimo'
+Range=[0 10]
+NumMFs=5
+MF1='Pésimo':'trimf',[0 0 3]
+MF2='regular':'trimf',[2 3.5 5]
+MF3='neutro':'trimf',[4 5 6]
+MF4='satisfactorio':'trimf',[5 7 9]
+MF5='excelente':'trimf',[8 10 10]
+
+[Input2]
+Name='Energía'
+Range=[0 10]
+NumMFs=5
+MF1='exhausto':'trimf',[0 0 3]
+MF2='sedentario':'trimf',[2 3.5 5]
+MF3='estable':'trimf',[4 5 6]
+MF4='activo':'trimf',[5 7 9]
+MF5='alto_rendimiento':'trimf',[8 10 10]
+
+[Input3]
+Name='H.sueño'
+Range=[0 15]
+NumMFs=5
+MF1='poco':'trimf',[0 0 5]
+MF2='adecuado':'trimf',[7 8 9]
+MF3='excesivo':'trimf',[9 15 15]
+MF4='regular':'trimf',[4 6 8]
+MF5='alto':'trimf',[8 10 12]
+
+[Input4]
+Name='Productividad'
+Range=[0 10]
+NumMFs=5
+MF1='muy_baja':'trimf',[0 0 3]
+MF2='normal':'trimf',[4 5 6]
+MF3='muy_alta':'trimf',[8 10 10]
+MF4='baja':'trimf',[2 3.5 5]
+MF5='alta':'trimf',[5 7 9]
+
+[Input5]
+Name='C.Compto'
+Range=[0 7]
+NumMFs=4
+MF1='nulo':'trimf',[0 0 2]
+MF2='frecuentemente':'trimf',[3 4.5 6]
+MF3='siempre':'trimf',[5 7 7]
+MF4='rara_vez':'trimf',[1 2.5 4]
+
+[Input6]
+Name='C.sustancias'
+Range=[0 7]
+NumMFs=4
+MF1='nunca':'trimf',[0 0 2]
+MF2='habitualmente':'trimf',[5 7 7]
+MF3='ocasionalmente':'trimf',[1 2.5 4]
+MF4='frecuentemente':'trimf',[3 4.5 6]
+
+[Input7]
+Name='I.social'
+Range=[0 7]
+NumMFs=4
+MF1='aislado':'trimf',[0 0 2]
+MF2='muy_sociable':'trimf',[5 7 7]
+MF3='poco social':'trimf',[1 2.5 4]
+MF4='interacción_normal':'trimf',[3 4.5 6]
+
+[Output1]
+Name='R.Depresión'
+Range=[0 10]
+NumMFs=5
+MF1='muy_baja':'trimf',[0 0 3]
+MF2='media':'trimf',[4 5 6]
+MF3='muy_alta':'trimf',[7 10 10]
+MF4='baja':'trimf',[2 3.5 5]
+MF5='alta':'trimf',[5 6.5 8]
+
+[Output2]
+Name='R.ansiedad'
+Range=[0 10]
+NumMFs=5
+MF1='muy_baja':'trimf',[0 0 3]
+MF2='media':'trimf',[4 5 6]
+MF3='muy_alta':'trimf',[7 10 10]
+MF4='baja':'trimf',[2 3.5 5]
+MF5='alta':'trimf',[5 6.5 8]
+
+[Output3]
+Name='R.tp'
+Range=[0 10]
+NumMFs=5
+MF1='muy_baja':'trimf',[0 0 3]
+MF2='media':'trimf',[4 5 6]
+MF3='muy_alta':'trimf',[7 10 10]
+MF4='baja':'trimf',[2 3.5 5]
+MF5='alta':'trimf',[5 6.5 8]
+
+[Rules]
+1 1 0 0 0 0 0, 3 0 0 (1) : 1
+0 0 1 1 0 0 0, 0 5 0 (1) : 1
+0 0 0 0 3 0 1, 0 0 3 (1) : 1
+5 5 0 0 0 0 0, 1 0 0 (1) : 1
+0 0 2 5 0 0 0, 0 4 0 (1) : 1
+0 0 0 0 1 0 2, 0 0 1 (1) : 1
+2 2 0 0 0 0 0, 2 0 0 (1) : 1
+0 0 4 4 0 0 0, 0 2 0 (1) : 1
+0 0 0 0 2 0 3, 0 0 2 (1) : 1
+0 0 0 0 0 2 0, 0 0 5 (1) : 1
+3 3 0 0 0 0 0, 4 0 0 (1) : 1
+0 0 3 1 0 0 0, 0 3 0 (1) : 1
+0 0 0 0 4 0 4, 0 0 4 (1) : 1
+4 4 0 0 0 0 0, 4 0 0 (1) : 1
+1 0 0 0 0 0 1, 0 3 0 (1) : 1
+0 1 0 1 0 0 0, 0 0 5 (1) : 1
+0 0 1 0 3 0 0, 5 0 0 (1) : 1
+0 0 0 1 0 2 0, 0 3 0 (1) : 1
+2 0 0 0 0 0 3, 0 0 2 (1) : 1
+0 2 1 0 0 0 0, 5 0 0 (1) : 1
+0 0 1 4 0 0 0, 0 5 0 (1) : 1
+0 0 0 0 0 1 0, 0 0 4 (1) : 1

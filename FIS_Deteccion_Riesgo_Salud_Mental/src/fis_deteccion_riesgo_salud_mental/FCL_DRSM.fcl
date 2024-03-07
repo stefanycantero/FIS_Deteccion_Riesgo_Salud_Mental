@@ -1,0 +1,176 @@
+FUNCTION_BLOCK detector
+
+    VAR_INPUT
+        estado_animo : REAL; RANGE := (0 .. 10);
+        energia : REAL; RANGE := (0 .. 10);
+        horas_sueno_diario : REAL; RANGE := (0 .. 15);
+        productividad : REAL; RANGE := (0 .. 10);
+        cambios_comportamiento : REAL; RANGE := (0 .. 7);
+        consumo_sustancias : REAL; RANGE := (0 .. 7);
+        interaccion_social : REAL; RANGE := (0 .. 7);
+    END_VAR
+
+    VAR_OUTPUT
+        riesgo_ansiedad : REAL; RANGE := (0 .. 10);
+        riesgo_depresion : REAL; RANGE := (0 .. 10);
+        riesgo_trastorno_personalidad : REAL; RANGE := (0 .. 10);
+    END_VAR
+
+    FUZZIFY estado_animo
+        TERM pesimo := trian 0 0 3;
+        TERM regular := trian 2 3.5 5;
+        TERM neutro := trian 4 5 6;
+        TERM satisfactorio := trian 5 7 9;
+        TERM excelente := trian 8 10 10;
+    END_FUZZIFY
+
+    FUZZIFY energia
+        TERM exhausto := trian 0 0 3;
+        TERM sedentario := trian 2 3.5 5;
+        TERM estable := trian 4 5 6;
+        TERM activo := trian 5 7 9;
+        TERM alto_rendimiento := trian 8 10 10;
+    END_FUZZIFY
+
+    FUZZIFY horas_sueno_diario
+        TERM poco := trian 0 0 5;
+        TERM regular := trian 4 6 8;
+        TERM adecuado := trian 7 8 9;
+        TERM alto := trian 8 10 12;
+        TERM excesivo := trian 9 15 15;
+    END_FUZZIFY
+
+    FUZZIFY productividad
+        TERM muy_bajo := trian 0 0 3;
+        TERM bajo := trian 2 3.5 5;
+        TERM normal := trian 4 5 6;
+        TERM alto := trian 5 7 9;
+        TERM muy_alto := trian 8 10 10;
+    END_FUZZIFY
+
+    FUZZIFY cambios_comportamiento
+        TERM nulo := trian 0 0 2;
+        TERM rara_vez := trian 1 2.5 4;
+        TERM frecuentemente := trian 3 4.5 6;
+        TERM siempre := trian 5 7 7;
+    END_FUZZIFY
+
+    FUZZIFY consumo_sustancias
+        TERM nunca := trian 0 0 2;
+        TERM ocasionalmente := trian 1 2.5 4;
+        TERM frecuentemente := trian 3 4.5 6;
+        TERM habitualmente := trian 5 7 7;
+    END_FUZZIFY
+
+    FUZZIFY interaccion_social
+        TERM aislado := trian 0 0 2;
+        TERM poco_social := trian 1 2.5 4;
+        TERM interaccion_normal := trian 3 4.5 6;
+        TERM muy_sociable := trian 5 7 7;
+    END_FUZZIFY
+
+    DEFUZZIFY riesgo_ansiedad
+        TERM muy_bajo := trian 0 0 3;
+        TERM bajo := trian 2 3.5 5;
+        TERM medio := trian 4 5 6;
+        TERM alto := trian 5 6.5 8;
+        TERM muy_alto := trian 7 10 10;
+        METHOD: COG;
+        DEFAULT := 0;
+    END_DEFUZZIFY
+
+    DEFUZZIFY riesgo_depresion
+        TERM muy_bajo := trian 0 0 3;
+        TERM bajo := trian 2 3.5 5;
+        TERM medio := trian 4 5 6;
+        TERM alto := trian 5 6.5 8;
+        TERM muy_alto := trian 7 10 10;
+        METHOD: COG;
+        DEFAULT := 0;
+    END_DEFUZZIFY
+
+    DEFUZZIFY riesgo_trastorno_personalidad
+        TERM muy_bajo := trian 0 0 3;
+        TERM bajo := trian 2 3.5 5;
+        TERM medio := trian 4 5 6;
+        TERM alto := trian 5 6.5 8;
+        TERM muy_alto := trian 7 10 10;
+        METHOD: COG;
+        DEFAULT := 0;
+    END_DEFUZZIFY
+
+    RULEBLOCK No1
+        AND: MIN;
+        OR: MAX;
+        ACT: MIN;
+        ACCU: MAX;
+
+        RULE 1: IF (estado_animo IS pesimo) AND (energia IS exhausto)
+                THEN (riesgo_depresion IS muy_alto);
+
+        RULE 2: IF (estado_animo IS excelente) AND (energia IS alto_rendimiento)
+                THEN (riesgo_depresion IS muy_bajo);
+
+        RULE 3: IF (estado_animo IS regular) AND (energia IS sedentario)
+                THEN (riesgo_depresion IS medio);
+
+        RULE 4: IF (estado_animo IS neutro) AND (energia IS estable)
+                THEN (riesgo_depresion IS bajo);
+
+        RULE 5: IF (estado_animo IS satisfactorio) AND (energia IS activo)
+                THEN (riesgo_depresion IS bajo);
+
+        RULE 6: IF (estado_animo IS pesimo) AND (interaccion_social IS aislado)
+                THEN (riesgo_depresion IS muy_alto);
+        
+        RULE 7: IF (horas_sueno_diario IS poco) AND (cambios_comportamiento IS siempre)
+                THEN (riesgo_depresion IS alto);
+
+        RULE 8: IF (horas_sueno_diario IS poco) AND (productividad IS muy_bajo)
+                THEN (riesgo_ansiedad IS alto);
+
+        RULE 9: IF (horas_sueno_diario IS adecuado) AND (productividad IS alto)
+                THEN (riesgo_ansiedad IS bajo);
+
+        RULE 10: IF (horas_sueno_diario IS regular) AND (productividad IS normal)
+                THEN (riesgo_ansiedad IS medio);
+
+        RULE 11: IF (horas_sueno_diario IS excesivo) AND (productividad IS muy_bajo)
+                THEN (riesgo_ansiedad IS muy_alto);
+
+        RULE 12: IF (productividad IS muy_bajo) AND (consumo_sustancias IS habitualmente)
+                THEN (riesgo_ansiedad IS muy_alto);
+
+        RULE 13: IF (cambios_comportamiento IS siempre) AND (interaccion_social IS aislado)
+                THEN (riesgo_trastorno_personalidad IS muy_alto);
+
+        RULE 14: IF (cambios_comportamiento IS nulo) AND (interaccion_social IS muy_sociable)
+                THEN (riesgo_trastorno_personalidad IS muy_bajo);
+
+        RULE 15: IF (cambios_comportamiento IS frecuentemente) AND (interaccion_social IS poco_social)
+                THEN (riesgo_trastorno_personalidad IS medio);
+
+        RULE 16: IF (consumo_sustancias IS habitualmente)
+                THEN (riesgo_trastorno_personalidad IS alto);
+
+        RULE 17: IF (consumo_sustancias IS nunca)
+                THEN (riesgo_trastorno_personalidad IS bajo);
+
+        RULE 18: IF (cambios_comportamiento IS rara_vez) AND (interaccion_social IS interaccion_normal)
+                THEN (riesgo_trastorno_personalidad IS bajo);
+
+        RULE 19: IF (energia IS exhausto) AND (productividad IS muy_bajo)
+                THEN (riesgo_trastorno_personalidad IS alto);
+
+        RULE 20: IF (interaccion_social IS poco_social) AND (estado_animo IS regular)
+                THEN (riesgo_trastorno_personalidad IS medio);
+        
+        RULE 21: IF (estado_animo IS pesimo) AND (energia IS sedentario)
+                THEN (riesgo_depresion IS alto);
+        
+        RULE 22: IF (horas_sueno_diario IS poco) AND (productividad IS bajo)
+                THEN (riesgo_ansiedad IS alto);
+
+    END_RULEBLOCK
+
+END_FUNCTION_BLOCK
