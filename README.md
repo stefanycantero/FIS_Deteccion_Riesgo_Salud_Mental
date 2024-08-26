@@ -39,7 +39,3 @@ La lógica difusa en el FIS permite:
 
 - **Java**: Para la implementación del Sistema de Inferencia Difusa con librerías de lógica difusa.
 - **Prolog**: Para el desarrollo del Sistema Experto en la generación de recomendaciones.
-
-## Contribuciones
-
-Este proyecto es una colaboración entre estudiantes de la Universidad Nacional de Colombia, enfocada en aplicar conceptos de inteligencia artificial para mejorar la salud mental.
