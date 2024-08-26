@@ -3,7 +3,7 @@
 
 ## Descripción
 
-Este proyecto es un trabajo en equipo para la asignatura Introducción a la Inteligencia Artificial en la Universidad Nacional de Colombia. Se enfoca en el desarrollo de dos sistemas principales:
+Este proyecto es un trabajo en equipo realizado por tres estudiantes de Ingeniería de Sistemas e Informática para la asignatura Introducción a la Inteligencia Artificial en la Universidad Nacional de Colombia. Se enfoca en el desarrollo de dos sistemas principales:
 
 1. **Sistema de Inferencia Difusa (FIS)**: Implementado en Java con bibliotecas de lógica difusa.
 2. **Sistema Experto (SE)**: Desarrollado en Prolog para recomendaciones personalizadas.
